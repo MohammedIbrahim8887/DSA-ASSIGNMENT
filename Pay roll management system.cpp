@@ -21,15 +21,15 @@ void MainMenu();
 void Display(Employee Data[ ]);//displays the content of our data base 
 void DisplaySearch(Employee result);
 void SwapEmpoyee( Employee *x, Employee *y);//used to swap employees
-void Search();//has two choice linear and bubble // searches: ID,PNum,AccNum,& Fname only
-char searchUsing();
-int searchAlgorithm();
+void Search();//has two choice linear and bubble // searches: ID,PNum,AccNum, only
+char searchUsing();//searchs using ID,PNum,AccNum,
+int searchAlgorithm();//chooses from linear ,binary
 void LinearSearch( Employee Data[ ], char searchUsing);
 void BinarySearch( Employee Data[ ], char searchUsing);
 void Sort();// has two choices ascending and descending // sorts based on: Salary,Dep,& Fname
-char sortUsing();
-int sortAlgorithm();
-int sortArrangment();
+char sortUsing();//chooses from salary,dep,fname
+int sortAlgorithm();//chooses which algorithm to take
+int sortArrangment();//chooses from ascending or descending
 void ascending_selection( Employee Data[ ], char sortUsing);
 void descending_selection( Employee Data[ ], char sortUsing);
 void ascending_bubble( Employee Data[ ], char sortUsing);
@@ -37,7 +37,6 @@ void descending_bubble( Employee Data[ ], char sortUsing);
 void Add();// adds new data into our database
 void remove();//removes searched data from our databse 
 void Read();
-void Write();
 //Linked List struct will be applied after next week to save time and reduce complexity *DELETE THIS LINE ON PRODUCTION*
 int main() {
 	Read();
@@ -46,7 +45,6 @@ int main() {
 }
 void Display(Employee Data[ ]){ 
 	//cout<<setfill('_')<<setw(155);
-	system("cls");
 	cout << "\n|" << setw ( 12 ) << "ID" << "|"<< setw ( 10 )  << "First Name" << "|" << setw ( 12 ) << "Last Name" << setw ( 1 )<< "|" << "Gender"  <<"|" << setw ( 14 )<< "Phone Number"  << "|" << setw ( 35 )<< "Email"  << "|" << setw ( 25 ) << "Department" << "|" << setw ( 20 )<< "Account Number"  << "|"  << setw ( 10 ) << "Salary"<< "|\n";
 	for ( int i = 0; i < numberOfEmployees; i++){
 		cout << "|"  << setw ( 12 )<< Data[ i ].ID << "|"  << setw ( 10 ) << Data[ i ].FName<< "|" << setw ( 12 ) << Data[ i ].LName << "|"  << setw ( 6 )<< Data[ i ].Gender << "|"<< setw ( 13 ) << Data[ i ].PNum  << "|"<< setw ( 35 ) << Data[ i ].Email  << "|"<< setw ( 25 )<<Data[ i ].Dep  << "|"<< setw ( 20 ) << Data[ i ].AccNum  << "|"  << setw ( 10 )<< Data[ i ].Salary << "|\n";
@@ -54,7 +52,7 @@ void Display(Employee Data[ ]){
 }
 void DisplaySearch(Employee result){
 	system("cls");
-		cout << "-------------------------" << "--------" << setw ( 10 ) << "------------------" << setw ( 10 ) << "-------------------------\n\n";
+	cout << "-------------------------" << "--------" << setw ( 10 ) << "------------------" << setw ( 10 ) << "-------------------------\n\n";
 	cout<<"\n\t\tEmployee\n";
 	cout<<"\t\tName: "<<result.FName<<" "<<result.LName<<endl;
 	cout<<"\t\tId: "<<result.ID<<endl;
@@ -64,8 +62,7 @@ void DisplaySearch(Employee result){
 	cout<<"\t\tDepartment: "<<result.Dep<<endl;
 	cout<<"\t\tAccount Number:"<<result.AccNum<<endl;
 	cout<<"\t\tSalary: "<<result.Salary<<endl;
-		cout << "-------------------------" << "--------" << setw ( 10 ) << "------------------" << setw ( 10 ) << "-------------------------\n\n";
- system("pause");
+	cout<< "-------------------------" << "--------" << setw ( 10 ) << "------------------" << setw ( 10 ) << "-------------------------\n\n";
  MainMenu();
  }
 void SwapEmployee( Employee *x, Employee *y){
@@ -80,6 +77,7 @@ void Search(){ //Implements the Search menu
 	else BinarySearch( RawData, use);		
 }
 char searchUsing(){
+	system("cls");
 	use:
 	int op;
 	int s;
@@ -102,6 +100,7 @@ char searchUsing(){
 	return s;
 }
 int searchAlgorithm(){
+	system("cls");
 	use:
 	int r;
 	cout << "\tAvailable Options:\n\n";
@@ -126,37 +125,19 @@ void LinearSearch( Employee Data[ ], char searchUsing){
 	system("cls");
 	string key;
 	bool found = false;
-	switch( searchUsing){
-		case 'I'://using salary
-			cout << "\t\t\tEnter the ID of the Employee you want to be searched?\n";
-			cin>> key;	
-			for ( int i = 0; i < numberOfEmployees; i++){// going up the list
-				 if(Data[ i ].ID == key ){
-					found = true;
-					DisplaySearch(Data[i]);
-				}	
-			}
-			break;
-		case 'P'://using Phone Number
-			cout << "\t\t\tEnter the Phone Number of the Employee you want to be searched?\n";
-			cin >> key;	
-			for ( int i = 0; i < numberOfEmployees; i++){// going up the list
-				if(Data[ i ].PNum == key ){
-					found = true;
-					DisplaySearch(Data[i]);
-				}
-			}
-
-			break;
-		case 'A'://using Account Number
-			cout << "\t\t\tEnter the Account Number  of the Employee you want to be searched?\n";
-			cin >> key;	
-			for ( int i = 0; i < numberOfEmployees; i++){// going up the list
-				if(Data[ i ].AccNum == key ){
-					found = true;
-					DisplaySearch(Data[i]);
-				}
-			}
+	cout << "\n\t\t\tEnter the ID/PhoneNumber/AccountNumber of the Employee you want to be searched?\n";
+	cin>> key;
+	for ( int i = 0; i < numberOfEmployees; i++){
+		if(searchUsing=='I'&& Data[ i ].ID == key){
+			found = true; 
+			DisplaySearch(Data[i]);
+		}else if(searchUsing=='P' && Data[ i ].PNum == key){
+			found = true; 
+			DisplaySearch(Data[i]);
+		}else if(searchUsing=='A' && Data[ i ].AccNum == key){
+			found = true; 
+			DisplaySearch(Data[i]);
+		}
 	}
 	if(!found) {
 		system("cls");
@@ -171,85 +152,50 @@ void LinearSearch( Employee Data[ ], char searchUsing){
 void BinarySearch(Employee Data[ ], char searchUsing){
 //write the binary search algorithm here
 	system("cls");
-	system("pause");
 	string key;
 	bool found = false;
 	int low = 0;
 	int mid;
 	int high = numberOfEmployees-1;
-	switch( searchUsing){
-		case 'I'://using salary  
-			for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].ID<Data[imin].ID) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			} 
-			cout << "-------------------------" << "--------" << setw ( 10 ) << "------------------" << setw ( 10 ) << "-------------------------\n\n";
-			cout << "Enter the ID of the Employee you want to be searched?";
-			cin>> key;	
-			while(low <= high){
-				mid = ( high + low)/2;
-				if(key == Data[mid].ID){
-					DisplaySearch(Data[mid]);
-				}
-				else if( key < Data[mid].ID){
-					high = mid -1;
-				}
-				else{
-					low = mid +1;
-				}
-			}
-			break;
-		case 'P'://using Phone Number
-			for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].PNum<Data[imin].PNum) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			}
-			cout << "Enter the Phone Number of the Employee you want to be searched?";
-			cin >> key;	
-				while(low <= high){
-				mid = ( high + low)/2;
-				if(key == Data[mid].PNum){
-				DisplaySearch(Data[mid]);
-				}
-				else if( key < Data[mid].PNum){
-					high = mid -1;
-				}
-				else{
-					low = mid +1;
-				}
-			}
-			break;
-		case 'A'://using Account Number
-				for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].AccNum<Data[imin].AccNum) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			}
-			cout << "Enter the Account Number of the Employee you want to be searched?";
-			cin >> key;	
-				while(low <= high){
-				mid = ( high + low)/2;
-				if(key == Data[mid].AccNum){
-				DisplaySearch(Data[mid]);
-				}
-				else if( key < Data[mid].AccNum){
-					high = mid -1;
-				}
-				else{
-					low = mid +1;
-				}
-			}	
-			break;
+	cout << "\n\t\t\tEnter the ID/PhoneNumber/AccountNumber of the Employee you want to be searched?\n";
+	cin>> key;
+	for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
+		int imin =i;
+		for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
+			if(Data[j].ID<Data[imin].ID) imin = j;
+		}
+  		if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
 	}
-	if(!found) {
+	while(low <= high){
+		mid = ( high + low)/2;
+		switch(searchUsing){
+			case 'I':
+				if(key == Data[mid].ID) {
+					DisplaySearch(Data[mid]);
+					found = true;
+				}
+				else if( key < Data[mid].ID) high = mid -1;
+				else low = mid +1;
+				break;
+			case 'P':
+				if(key == Data[mid].PNum) {
+					DisplaySearch(Data[mid]);
+					found = true;
+				}
+				else if( key < Data[mid].PNum) high = mid -1;
+				else low = mid +1;
+				break;
+			case 'A':
+				if(key == Data[mid].AccNum) {
+					DisplaySearch(Data[mid]);
+					found = true;
+				}
+				else if( key < Data[mid].AccNum) high = mid -1;
+				else low = mid +1;
+				break;
+		} 
+	}
+    if(!found) {
 		system("cls");
 		cout << "-------------------------" << "--------" << setw ( 10 ) << "------------------" << setw ( 10 ) << "-------------------------\n\n";
 		cout<<"\t\t\tThe data u have entered is incorrect \n\t\t\tTry to input acorrect";
@@ -269,7 +215,6 @@ void Sort(){
 	else descending_bubble( RawData, use);
 }		
 char sortUsing(){
-	system( "pause" );
 	system ("cls" );
 	use:
 	int k;
@@ -287,7 +232,7 @@ char sortUsing(){
 		case 1: s = 'S'; break;
 		case 2: s = 'N'; break;
 		case 3: s = 'D'; break;
-		case 4: system( "cls" );Sort(); break;
+		case 4: system( "cls" );MainMenu(); break;
 		default: 
 			cout << "Enter a valid option";
 			goto use;
@@ -295,7 +240,6 @@ char sortUsing(){
 	return s;
 }
 int sortAlgorithm(){
-	system( "pause" );
 	system( "cls" );
 	use:
 	int n; 
@@ -317,6 +261,7 @@ int sortAlgorithm(){
 	return n;
 }
 int sortArrangment(){
+	system("cls");
 	use:
 	int p;
 	cout << "-------------------------" << "--------" << setw ( 10 ) << "------------------" << setw ( 10 ) << "-------------------------\n\n";
@@ -338,148 +283,61 @@ int sortArrangment(){
 	return p;
 	}
 void ascending_bubble( Employee Data[ ], char sortUsing){
-	switch(sortUsing){
-		case 'S'://using salary
-			cout<<"\t\t\t***************this is sorted(Salary) using bubble sort ascending order***************"<<endl;
-				for(int i=0;i<numberOfEmployees-1;i++){
-					int flag = 0;
-					for(int j=0;j<numberOfEmployees-(i+1);j++){
-							if(Data[j].Salary>Data[j+1].Salary)	{
-
-							SwapEmployee( &Data[ j ], &Data[ j+1 ]);
-							flag = 1;
-						}
-					}
-				}
-			break;
-		case 'D'://using department
-			cout<<"\t\t\t***************this is sorted(Department) using bubble sort ascending order***************"<<endl;
-			for(int i=0;i<numberOfEmployees-1;i++){
-				int flag = 0;
-				for(int j=0;j<numberOfEmployees-(i+1);j++){
-					if(Data[j].Dep>Data[j+1].Dep){
-						SwapEmployee( &Data[ j ], &Data[ j+1 ]);
-						flag = 1;
-					}
-				}
-			}
-		break;
-		case 'N'://using name
-			system("pause");
-			cout<<"\t\t\t***************this is sorted(First Name) using bubble sort ascending order***************"<<endl;
-			for(int i=0;i<numberOfEmployees-1;i++){
-				int flag = 0;
-				for(int j=0;j<numberOfEmployees-(i+1);j++){
-					if(Data[j].FName>Data[j+1].FName){
-						SwapEmployee( &Data[ j ], &Data[ j+1 ]);
-						flag = 1;
-					}
-				}
-			}
-			break;	
+	for(int i=0;i<numberOfEmployees-1;i++){//goes through the list
+			int flag = 0;
+		for(int j=0;j<numberOfEmployees-(i+1);j++){//starts comparing up the list
+			if (sortUsing=='S'&&Data[j].Salary>Data[j+1].Salary)SwapEmployee( &Data[ j ], &Data[ j+1 ]); flag = 1;	
+			if(sortUsing=='D'&&Data[j].Dep>Data[j+1].Dep)SwapEmployee( &Data[ j ], &Data[ j+1 ]); flag = 1;	
+			if(sortUsing=='N'&&Data[j].FName>Data[j+1].FName)SwapEmployee( &Data[ j ], &Data[ j+1 ]); flag = 1;
+		}
 	}
+	if(sortUsing == 'S')cout<<"\t\t\t***************this is sorted(Salary) using bubble sort ascending order***************"<<endl;
+	else if(sortUsing == 'D')cout<<"\t\t\t***************this is sorted(Department) using bubble sort ascending order***************"<<endl;
+	else cout<<"\t\t\t***************this is sorted(First Name) using bubble sort ascending order***************"<<endl;
 	Display(Data);
 }
 void descending_bubble( Employee Data[ ], char sortUsing){
-	switch(sortUsing){
-		case 'S'://using salary
-			for(int i=0;i<numberOfEmployees-1;i++){
-				int flag = 0;
-				for(int j=0;j<numberOfEmployees-(i+1);j++){
-					if(Data[j].Salary<(Data[j+1].Salary))	{
-						SwapEmployee( &Data[ j ], &Data[ j+1 ]);
-						flag = 1;
-					}
-				}
-			}
-			break;
-		case 'D'://using department
-		for(int i=0;i<numberOfEmployees-1;i++){
+	for(int i=0;i<numberOfEmployees-1;i++){//goes through the list
 			int flag = 0;
-			for(int j=0;j<numberOfEmployees-(i+1);j++){
-				if(Data[j].Dep<(Data[j+1].Dep))	{
-					SwapEmployee( &Data[ j ], &Data[ j+1 ]);
-					flag = 1;
-				}
-			}
+		for(int j=0;j<numberOfEmployees-(i+1);j++){//starts comparing up the list
+			if(sortUsing=='S'&&Data[j].Salary<Data[j+1].Salary)SwapEmployee( &Data[ j ], &Data[ j+1 ]); flag = 1;	
+			if(sortUsing=='D'&&Data[j].Dep<Data[j+1].Dep)SwapEmployee( &Data[ j ], &Data[ j+1 ]); flag = 1;	
+			if(sortUsing=='N'&&Data[j].FName<Data[j+1].FName)SwapEmployee( &Data[ j ], &Data[ j+1 ]); flag = 1;
 		}
-		break;
-	case 'N'://using name
-		for(int i=0;i<numberOfEmployees-1;i++){
-			int flag = 0;
-			for(int j=0;j<numberOfEmployees-(i+1);j++){
-				if(Data[j].FName<(Data[j+1].FName)){
-					SwapEmployee( &Data[ j ], &Data[ j+1 ]);
-					flag = 1;
-				}
-			}
-		}
-		break;	
 	}
-	Display( Data);
-}//looking for the smallest value to swap it for the current value// going up the list		
+	if(sortUsing == 'S')cout<<"\t\t\t***************this is sorted(Salary) using bubble sort ascending order***************"<<endl;
+	else if(sortUsing == 'D')cout<<"\t\t\t***************this is sorted(Department) using bubble sort ascending order***************"<<endl;
+	else cout<<"\t\t\t***************this is sorted(First Name) using bubble sort ascending order***************"<<endl;
+	Display(Data);
+}		
 void ascending_selection(Employee Data[], char sortUsing){
-	switch(sortUsing){
-		case 'S'://using salary 	
-			for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].Salary<Data[imin].Salary) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			}
-			break;
-		case 'D'://using department
-			for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].Dep<Data[imin].Dep) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			}
-			break;
-		case 'N'://using name
-			for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].FName<Data[imin].FName) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			}
-			break;
+	for(int i=0;i<numberOfEmployees-1;i++){
+		int imin =i;
+	for(int j=i+1;j<numberOfEmployees;j++){
+		if(sortUsing=='S'&& Data[j].Salary<Data[imin].Salary) imin = j;
+		if(sortUsing=='D'&&Data[j].Dep<Data[imin].Dep)imin = j;
+		if(sortUsing=='N'&&Data[j].FName<Data[imin].FName) imin = j; 
 	}
+		if(imin != i) SwapEmployee(&Data[i],&Data[imin]);	
+	}
+	if(sortUsing == 'S') cout<<"\t\t\t***************this is sorted(Salary) using selection sort ascending order***************"<<endl;
+	else if(sortUsing == 'D') cout<<"\t\t\t***************this is sorted(Department) using selection sort ascending order***************"<<endl;
+	else cout<<"\t\t\t***************this is sorted(First Name) using selection sort ascending order***************"<<endl;
 	Display(Data);
 }	
 void descending_selection(Employee Data[], char sortUsing){
-	switch(sortUsing){
-		case 'S'://using salary 	
-			for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].Salary>Data[imin].Salary) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			}
-			break;
-		case 'D'://using department
-			for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].Dep>Data[imin].Dep) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			}
-			break;
-		case 'N'://using name
-			for(int i=0;i<numberOfEmployees-1;i++){// going up the list 
-				int imin =i;
-				for(int j=i+1;j<numberOfEmployees;j++){//looking for the smallest value to swap it for the current value
-					if(Data[j].FName>Data[imin].FName) imin = j;
-				}
-				if(imin != i) SwapEmployee(&Data[i],&Data[imin]);
-			}
-			break;
+	for(int i=0;i<numberOfEmployees-1;i++){
+		int imin =i;
+	for(int j=i+1;j<numberOfEmployees;j++){
+		if(sortUsing=='S'&& Data[j].Salary>Data[imin].Salary) imin = j;
+		if(sortUsing=='D'&&Data[j].Dep>Data[imin].Dep)imin = j;
+		if(sortUsing=='N'&&Data[j].FName>Data[imin].FName) imin = j; 
 	}
+		if(imin != i) SwapEmployee(&Data[i],&Data[imin]);	
+	}
+	if(sortUsing == 'S') cout<<"\t\t\t***************this is sorted(Salary) using selection sort descending order***************"<<endl;
+	else if(sortUsing == 'D') cout<<"\t\t\t***************this is sorted(Department) using selection sort descending order***************"<<endl;
+	else cout<<"\t\t\t***************this is sorted(First Name) using bubble selection descending order***************"<<endl;
 	Display(Data);
 }
 void MainMenu(){
@@ -509,7 +367,13 @@ void MainMenu(){
 		else if ( option == 3) Sort();
 		else if ( option == 4) Add();
 		else if ( option == 5) remove();
-		else if ( option == 6) exit(0);
+		else if ( option == 6){
+		char f;
+		system("cls");
+		cout<<"\n\n\n\n\t\t\tDo you want to exit the app?\n\t\t\tif yes press Y or not press any key?"<<endl;
+		cin>>f;
+		if( 'y'||'Y'==f)exit(0);
+		}
 		else{
 			cout << "Expected Options"<< " are 1/2/3/4/5/6";
 		}
